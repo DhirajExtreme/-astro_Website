@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrologer Shree Ayush Saxena - Cosmic Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a0033;
+            --secondary: #2d1b4e;
+            --accent: #d4af37;
+            --accent-light: #f0d9b5;
+            --text: #e8e8e8;
+            --text-dark: #b0b0b0;
+            --success: #7cb342;
+            --warning: #ffa726;
+            --border: #3d2d5f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated star background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: twinkling 5s infinite;
+            z-index: -1;
+        }
+
+        @keyframes twinkling {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 0, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 2px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo span {
+            color: var(--accent-light);
+            font-size: 0.7em;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a, nav button {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after, nav button::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav button:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-btn:hover {
+            color: var(--accent-light);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Prediction Form */
+        .form-container {
+            background: rgba(45, 27, 78, 0.6);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-dark);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--primary);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            margin: 1rem auto;
+            display: block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Results */
+        .prediction-result {
+            background: rgba(45, 27, 78, 0.6);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .prediction-result.hidden {
+            display: none;
+        }
+
+        .result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .result-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .result-value {
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            background: rgba(45, 27, 78, 0.6);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .price-tag .currency {
+            font-size: 1.5rem;
+        }
+
+        .price-tag .period {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 400;
+        }
+
+        .chat-features {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chat-features h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+
+        .razorpay-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        /* Admin Dashboard */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .admin-card {
+            background: rgba(45, 27, 78, 0.6);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-card h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--text-dark);
+        }
+
+        .stat-value {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .session-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .session-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-active {
+            background: rgba(124, 179, 66, 0.2);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 0, 51, 0.95);
+            border-top: 2px solid var(--accent);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-dark);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            nav {
+                gap: 1.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .alert-success {
+            background: rgba(124, 179, 66, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #ff9999;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                🌙 SHREE AYUSH SAXENA
+                <span>Vedic Astrologer</span>
+            </div>
+            <nav>
+                <button onclick="switchTab('prediction')" class="tab-nav">Prediction</button>
+                <button onclick="switchTab('chat')" class="tab-nav">Premium Chat</button>
+                <button onclick="switchTab('admin')" class="tab-nav">Admin</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Discover Your Cosmic Destiny</h1>
+            <p>Welcome to the astrology consultation platform of Shree Ayush Saxena. Unlock the mysteries of the universe and understand your life path through ancient Vedic wisdom.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('prediction')">Free Prediction</button>
+            <button class="tab-btn" onclick="switchTab('chat')">Premium Chat</button>
+            <button class="tab-btn" onclick="switchTab('admin')">Admin Dashboard</button>
+        </div>
+
+        <!-- Prediction Tab -->
+        <div id="prediction" class="tab-content active">
+            <div class="form-container">
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center; font-family: 'Playfair Display', serif;">Get Your Free Prediction</h2>
+                
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tob">Time of Birth (Optional)</label>
+                    <input type="time" id="tob">
+                </div>
+
+                <div class="form-group">
+                    <label for="place">Place of Birth</label>
+                    <input type="text" id="place" placeholder="City, Country" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="generatePrediction()">✨ Generate Prediction</button>
+            </div>
+
+            <!-- Prediction Result -->
+            <div id="predictionResult" class="prediction-result hidden">
+                <h3 class="result-title">Your Cosmic Profile</h3>
+                
+                <div class="result-item">
+                    <span class="result-label">Name</span>
+                    <span class="result-value" id="resultName"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Zodiac Sign</span>
+                    <span class="result-value" id="resultZodiac"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Age</span>
+                    <span class="result-value" id="resultAge"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Lucky Number</span>
+                    <span class="result-value" id="resultLucky"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Lucky Color</span>
+                    <span class="result-value" id="resultColor"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Element</span>
+                    <span class="result-value" id="resultElement"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Personality Insight</span>
+                    <span class="result-value" id="resultInsight"></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Best Days for Important Tasks</span>
+                    <span class="result-value" id="resultDays"></span>
+                </div>
+
+                <button class="btn btn-secondary" onclick="resetPrediction()">← New Prediction</button>
+            </div>
+        </div>
+
+        <!-- Premium Chat Tab -->
+        <div id="chat" class="tab-content">
+            <div class="chat-container">
+                <div class="chat-info">
+                    <h2>🔮 Connect with the Astrologer</h2>
+                    <p style="color: var(--text-dark); margin: 1rem 0;">Get personalized guidance and detailed analysis from Shree Ayush Saxena</p>
+                    
+                    <div class="price-tag">
+                        <span class="currency">₹</span>500
+                        <span class="period">/ 30 minutes</span>
+                    </div>
+                </div>
+
+                <div class="chat-features">
+                    <h3>What You Get:</h3>
+                    <ul class="feature-list">
+                        <li>Real-time chat with the astrologer</li>
+                        <li>Detailed birth chart analysis</li>
+                        <li>Career & relationship guidance</li>
+                        <li>Remedies and solutions</li>
+                        <li>Future prediction insights</li>
+                        <li>Session recording (if desired)</li>
+                    </ul>
+                </div>
+
+                <div class="razorpay-section">
+                    <p style="color: var(--text-dark); margin-bottom: 1.5rem;">Secure payment via Razorpay</p>
+                    <button class="btn btn-primary" onclick="initiateRazorpayPayment()">💳 Book Chat Session</button>
+                </div>
+
+                <div id="paymentStatus" class="hidden" style="margin-top: 1.5rem;"></div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard Tab -->
+        <div id="admin" class="tab-content">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent);">Admin Dashboard</h2>
+                <button class="btn btn-secondary" onclick="toggleAdminLogin()" style="width: auto; margin-top: 1rem;">Admin Login</button>
+            </div>
+
+            <div id="adminLoginModal" class="modal">
+                <div class="modal-content" style="position: relative;">
+                    <button class="close-btn" onclick="toggleAdminLogin()">×</button>
+                    <div class="modal-header">Admin Authentication</div>
+                    <div class="form-group">
+                        <label for="adminPassword">Admin Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter admin password">
+                    </div>
+                    <button class="btn btn-primary" onclick="authenticateAdmin()">Login</button>
+                    <div id="authError" class="alert alert-error hidden" style="margin-top: 1rem;"></div>
+                </div>
+            </div>
+
+            <div id="adminContent" class="hidden">
+                <div class="admin-container">
+                    <!-- Stats Card -->
+                    <div class="admin-card">
+                        <h3>📊 Today's Statistics</h3>
+                        <div class="stat">
+                            <span class="stat-label">Free Predictions</span>
+                            <span class="stat-value" id="statPredictions">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Chat Sessions</span>
+                            <span class="stat-value" id="statSessions">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Total Revenue</span>
+                            <span class="stat-value" id="statRevenue">₹0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Pending Sessions</span>
+                            <span class="stat-value pulse" id="statPending">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Active Sessions -->
+                    <div class="admin-card">
+                        <h3>💬 Recent Sessions</h3>
+                        <div id="sessionsList">
+                            <p style="color: var(--text-dark); text-align: center; padding: 2rem 0;">No sessions yet</p>
+                        </div>
+                    </div>
+
+                    <!-- User Queries -->
+                    <div class="admin-card">
+                        <h3>👥 Recent Users</h3>
+                        <div id="usersList">
+                            <p style="color: var(--text-dark); text-align: center; padding: 2rem 0;">No users yet</p>
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="admin-card">
+                        <h3>⚙️ Settings</h3>
+                        <div class="form-group">
+                            <label for="chatPrice">Chat Session Price (₹)</label>
+                            <input type="number" id="chatPrice" value="500">
+                        </div>
+                        <div class="form-group">
+                            <label for="chatDuration">Session Duration (minutes)</label>
+                            <input type="number" id="chatDuration" value="30">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveAdminSettings()">Save Settings</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" style="margin-top: 2rem;" onclick="logoutAdmin()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p><strong>🌟 Shree Ayush Saxena</strong> - Vedic Astrologer</p>
+            <p>Serving with cosmic wisdom since 2020 | Certified in Vedic Astrology</p>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+                <a href="#">Email</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem;">© 2024 All Rights Reserved | Privacy Policy</p>
+        </div>
+    </footer>
+
+    <script>
+        // Zodiac Signs and Properties
+        const zodiacSigns = {
+            'Capricorn': { dates: [12, 22, 1, 19], element: 'Earth', luckyNum: 8, color: 'Brown' },
+            'Aquarius': { dates: [1, 20, 2, 18], element: 'Air', luckyNum: 4, color: 'Blue' },
+            'Pisces': { dates: [2, 19, 3, 20], element: 'Water', luckyNum: 7, color: 'Sea Green' },
+            'Aries': { dates: [3, 21, 4, 19], element: 'Fire', luckyNum: 9, color: 'Red' },
+            'Taurus': { dates: [4, 20, 5, 20], element: 'Earth', luckyNum: 6, color: 'Green' },
+            'Gemini': { dates: [5, 21, 6, 20], element: 'Air', luckyNum: 5, color: 'Yellow' },
+            'Cancer': { dates: [6, 21, 7, 22], element: 'Water', luckyNum: 2, color: 'Silver' },
+            'Leo': { dates: [7, 23, 8, 22], element: 'Fire', luckyNum: 1, color: 'Gold' },
+            'Virgo': { dates: [8, 23, 9, 22], element: 'Earth', luckyNum: 5, color: 'Green' },
+            'Libra': { dates: [9, 23, 10, 22], element: 'Air', luckyNum: 6, color: 'Blue' },
+            'Scorpio': { dates: [10, 23, 11, 21], element: 'Water', luckyNum: 8, color: 'Maroon' },
+            'Sagittarius': { dates: [11, 22, 12, 21], element: 'Fire', luckyNum: 9, color: 'Purple' }
+        };
+
+        const insights = {
+            'Fire': 'You are passionate, energetic, and courageous. Your natural leadership and enthusiasm inspire those around you.',
+            'Earth': 'You are practical, reliable, and grounded. Your stable nature makes you a dependable friend and partner.',
+            'Air': 'You are intellectual, communicative, and adaptable. Your curiosity and wit make you an engaging companion.',
+            'Water': 'You are intuitive, emotional, and empathetic. Your depth and sensitivity allow you to connect deeply with others.'
+        };
+
+        const luckDays = {
+            'Fire': 'Tuesday & Thursday',
+            'Earth': 'Wednesday & Saturday',
+            'Air': 'Monday & Wednesday',
+            'Water': 'Monday & Friday'
+        };
+
+        // Tab Switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Get Zodiac Sign
+        function getZodiacSign(month, day) {
+            for (let sign in zodiacSigns) {
+                const [m1, d1, m2, d2] = zodiacSigns[sign].dates;
+                if ((month === m1 && day >= d1) || (month === m2 && day <= d2)) {
+                    return sign;
+                }
+            }
+        }
+
+        // Calculate Age
+        function calculateAge(birthDate) {
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        // Generate Prediction
+        function generatePrediction() {
+            const name = document.getElementById('name').value.trim();
+            const dob = document.getElementById('dob').value;
+            const place = document.getElementById('place').value.trim();
+            const gender = document.getElementById('gender').value;
+
+            if (!name || !dob || !place || !gender) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const birthDate = new Date(dob);
+            const month = birthDate.getMonth() + 1;
+            const day = birthDate.getDate();
+
+            const zodiac = getZodiacSign(month, day);
+            const props = zodiacSigns[zodiac];
+            const age = calculateAge(birthDate);
+            const insight = insights[props.element];
+            const days = luckDays[props.element];
+
+            // Display Results
+            document.getElementById('resultName').textContent = name;
+            document.getElementById('resultZodiac').textContent = zodiac;
+            document.getElementById('resultAge').textContent = age + ' years';
+            document.getElementById('resultLucky').textContent = props.luckyNum;
+            document.getElementById('resultColor').textContent = props.color;
+            document.getElementById('resultElement').textContent = props.element;
+            document.getElementById('resultInsight').textContent = insight;
+            document.getElementById('resultDays').textContent = days;
+
+            // Save to local storage for admin
+            saveUserData(name, zodiac, place, gender, dob);
+
+            document.getElementById('predictionResult').classList.remove('hidden');
+            setTimeout(() => document.getElementById('predictionResult').scrollIntoView({ behavior: 'smooth' }), 100);
+        }
+
+        // Reset Prediction
+        function resetPrediction() {
+            document.getElementById('name').value = '';
+            document.getElementById('dob').value = '';
+            document.getElementById('tob').value = '';
+            document.getElementById('place').value = '';
+            document.getElementById('gender').value = '';
+            document.getElementById('predictionResult').classList.add('hidden');
+        }
+
+        // Save User Data
+        function saveUserData(name, zodiac, place, gender, dob) {
+            const users = JSON.parse(localStorage.getItem('astroUsers') || '[]');
+            users.push({ name, zodiac, place, gender, dob, timestamp: new Date().toLocaleString() });
+            localStorage.setItem('astroUsers', JSON.stringify(users));
+        }
+
+        // Razorpay Payment
+        function initiateRazorpayPayment() {
+            const paymentAmount = 50000; // 500 INR in paise
+            
+            // Note: In production, you need to integrate actual Razorpay
+            const options = {
+                "key": "YOUR_RAZORPAY_KEY_ID", // Replace with your key
+                "amount": paymentAmount,
+                "currency": "INR",
+                "name": "Shree Ayush Saxena",
+                "description": "Premium Astrology Chat Session",
+                "image": "https://via.placeholder.com/100",
+                "handler": function(response) {
+                    if (response.razorpay_payment_id) {
+                        savePaymentData(response);
+                        showPaymentSuccess();
+                    }
+                },
+                "prefill": {
+                    "name": "",
+                    "email": "",
+                    "contact": ""
+                },
+                "theme": {
+                    "color": "#d4af37"
+                }
+            };
+
+            // For demo: Show confirmation dialog
+            const confirmPayment = confirm('Razorpay Payment Gateway\n\nAmount: ₹500\nSession: 30 minutes\n\nClick OK to proceed (Demo Mode)');
+            
+            if (confirmPayment) {
+                savePaymentData({ razorpay_payment_id: 'demo_' + Date.now() });
+                showPaymentSuccess();
+            }
+        }
+
+        // Save Payment Data
+        function savePaymentData(response) {
+            const payments = JSON.parse(localStorage.getItem('astroPayments') || '[]');
+            payments.push({
+                paymentId: response.razorpay_payment_id,
+                amount: 500,
+                timestamp: new Date().toLocaleString(),
+                status: 'completed'
+            });
+            localStorage.setItem('astroPayments', JSON.stringify(payments));
+        }
+
+        // Show Payment Success
+        function showPaymentSuccess() {
+            const statusDiv = document.getElementById('paymentStatus');
+            statusDiv.innerHTML = '<div class="alert alert-success">✅ Payment successful! The astrologer will connect with you shortly via chat.</div>';
+            statusDiv.classList.remove('hidden');
+            setTimeout(() => statusDiv.classList.add('hidden'), 5000);
+        }
+
+        // Admin Functions
+        function toggleAdminLogin() {
+            document.getElementById('adminLoginModal').classList.toggle('active');
+        }
+
+        function authenticateAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            const correctPassword = 'admin123'; // Change this in production
+            
+            if (password === correctPassword) {
+                document.getElementById('adminLoginModal').classList.remove('active');
+                document.getElementById('adminContent').classList.remove('hidden');
+                updateAdminDashboard();
+            } else {
+                document.getElementById('authError').textContent = 'Invalid password';
+                document.getElementById('authError').classList.remove('hidden');
+            }
+        }
+
+        function updateAdminDashboard() {
+            const users = JSON.parse(localStorage.getItem('astroUsers') || '[]');
+            const payments = JSON.parse(localStorage.getItem('astroPayments') || '[]');
+            const today = new Date().toDateString();
+
+            const todayPredictions = users.filter(u => new Date(u.timestamp).toDateString() === today).length;
+            const totalRevenue = payments.reduce((sum, p) => sum + p.amount, 0);
+
+            document.getElementById('statPredictions').textContent = todayPredictions;
+            document.getElementById('statSessions').textContent = payments.length;
+            document.getElementById('statRevenue').textContent = '₹' + totalRevenue;
+            document.getElementById('statPending').textContent = payments.filter(p => p.status === 'pending').length;
+
+            // Update sessions list
+            const sessionsList = document.getElementById('sessionsList');
+            if (payments.length > 0) {
+                sessionsList.innerHTML = payments.slice(-3).map(p => `
+                    <div class="session-item">
+                        <strong>Session #${p.paymentId.slice(-6)}</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-dark);">₹${p.amount} - ${p.timestamp}</p>
+                        <span class="session-status status-active">✓ Completed</span>
+                    </div>
+                `).join('');
+            }
+
+            // Update users list
+            const usersList = document.getElementById('usersList');
+            if (users.length > 0) {
+                usersList.innerHTML = users.slice(-3).map(u => `
+                    <div class="session-item">
+                        <strong>${u.name}</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-dark);">${u.zodiac} • ${u.gender}</p>
+                        <p style="font-size: 0.85rem; color: var(--text-dark);">📍 ${u.place}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function saveAdminSettings() {
+            const price = document.getElementById('chatPrice').value;
+            const duration = document.getElementById('chatDuration').value;
+            
+            localStorage.setItem('chatPrice', price);
+            localStorage.setItem('chatDuration', duration);
+            
+            alert('Settings saved successfully!');
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminContent').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('authError').classList.add('hidden');
+        }
+
+        // Navigation Helper
+        document.querySelectorAll('.tab-nav').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                const tabName = this.textContent.toLowerCase().split(' ')[0];
+                document.getElementById(tabName)?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Load settings on page load
+        window.addEventListener('load', () => {
+            const savedPrice = localStorage.getItem('chatPrice');
+            if (savedPrice) document.getElementById('chatPrice').value = savedPrice;
+        });
+    </script>
+</body>
+</html>
