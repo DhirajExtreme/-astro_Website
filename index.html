@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrologer Shree Ayush Saxena - Cosmic Guidance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1a0033">
+    <meta name="description" content="Astrologer Shree Ayush Saxena - Professional Vedic Astrology Consultation with free predictions and premium paid sessions">
+    <meta name="keywords" content="astrology, vedic astrology, horoscope, predictions, zodiac">
+    <meta name="author" content="Shree Ayush Saxena">
+    <title>Astrologer Shree Ayush Saxena - Cosmic Guidance & Vedic Astrology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,19 +17,43 @@
         }
 
         :root {
-            --primary: #1a0033;
-            --secondary: #2d1b4e;
+            --primary-dark: #1a0033;
+            --secondary-dark: #2d1b4e;
             --accent: #d4af37;
             --accent-light: #f0d9b5;
-            --text: #e8e8e8;
-            --text-dark: #b0b0b0;
+            --text-dark: #e8e8e8;
+            --text-dark-secondary: #b0b0b0;
+            --border-dark: #3d2d5f;
             --success: #7cb342;
             --warning: #ffa726;
-            --border: #3d2d5f;
+
+            --primary-light: #f8f7f4;
+            --secondary-light: #f5ede0;
+            --text-light: #2c2c2c;
+            --text-light-secondary: #5a5a5a;
+            --border-light: #e8dcc8;
+
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --text: var(--text-dark);
+            --text-secondary: var(--text-dark-secondary);
+            --border: var(--border-dark);
+
+            --radius: clamp(0.5rem, 3vw, 1.5rem);
+            --spacing: clamp(1rem, 4vw, 2rem);
+        }
+
+        html.light-mode {
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --text: var(--text-light);
+            --text-secondary: var(--text-light-secondary);
+            --border: var(--border-light);
         }
 
         html {
             scroll-behavior: smooth;
+            font-size: clamp(14px, 2vw, 16px);
         }
 
         body {
@@ -35,9 +63,42 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            line-height: 1.6;
         }
 
-        /* Animated star background */
+        /* Skip to Main Content */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            z-index: 2500;
+            font-weight: 600;
+            border-radius: 0 0 0.5rem 0;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Animated Background Canvas */
+        #starCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.6;
+        }
+
+        /* Animated star background overlay */
         body::before {
             content: '';
             position: fixed;
@@ -45,77 +106,134 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            opacity: 0.5;
+            background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(240, 217, 181, 0.08) 0%, transparent 50%);
             pointer-events: none;
-            animation: twinkling 5s infinite;
+            animation: ambientGlow 8s ease-in-out infinite;
             z-index: -1;
         }
 
-        @keyframes twinkling {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+        @keyframes ambientGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--spacing);
+            right: var(--spacing);
+            z-index: 1500;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            width: clamp(3rem, 10vw, 4rem);
+            height: clamp(3rem, 10vw, 4rem);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .theme-toggle:hover,
+        .theme-toggle:focus {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1) rotate(20deg);
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* Header */
         header {
-            background: rgba(26, 0, 51, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 0, 51, 0.92);
+            backdrop-filter: blur(15px);
             border-bottom: 2px solid var(--accent);
-            padding: 1.5rem 0;
+            padding: clamp(1rem, 3vw, 1.5rem) 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
         }
 
+        html.light-mode header {
+            background: rgba(248, 247, 244, 0.95);
+        }
+
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 clamp(1rem, 4vw, 2rem);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: clamp(1rem, 3vw, 2rem);
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 4vw, 2rem);
             font-weight: 900;
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            white-space: nowrap;
             animation: fadeInDown 0.8s ease-out;
         }
 
         .logo span {
             color: var(--accent-light);
-            font-size: 0.7em;
+            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
             display: block;
             font-family: 'Poppins', sans-serif;
             font-weight: 300;
             letter-spacing: 1px;
         }
 
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--accent);
+            cursor: pointer;
+            z-index: 1100;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:focus {
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.1);
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         nav {
             display: flex;
-            gap: 3rem;
+            gap: clamp(1.5rem, 4vw, 3rem);
+            align-items: center;
         }
 
         nav a, nav button {
             color: var(--text);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 400;
             border: none;
             background: none;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            padding: 0.5rem 0;
         }
 
         nav a::after, nav button::after {
@@ -135,59 +253,177 @@
 
         /* Main Content */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: var(--spacing) clamp(1rem, 4vw, 2rem);
         }
 
-        /* Hero Section */
+        /* Hero Section with 3D */
         .hero {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: clamp(2rem, 8vw, 4rem);
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            perspective: 1000px;
         }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-zodiac {
+            position: absolute;
+            font-size: clamp(2rem, 8vw, 6rem);
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotateZ(0deg); }
+            25% { transform: translateY(-20px) translateX(20px) rotateZ(5deg); }
+            50% { transform: translateY(-40px) translateX(-20px) rotateZ(10deg); }
+            75% { transform: translateY(-20px) translateX(20px) rotateZ(5deg); }
+        }
+
+        .zodiac-1 { top: 5%; left: 10%; animation-delay: 0s; }
+        .zodiac-2 { top: 15%; right: 15%; animation-delay: 1s; }
+        .zodiac-3 { bottom: 20%; left: 5%; animation-delay: 2s; }
+        .zodiac-4 { bottom: 10%; right: 10%; animation-delay: 3s; }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            max-width: 600px;
-            margin: 0 auto 2rem;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto clamp(1.5rem, 3vw, 2rem);
             line-height: 1.8;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 3D Zodiac Wheel */
+        .zodiac-wheel-container {
+            perspective: 1200px;
+            height: clamp(300px, 50vw, 500px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: clamp(2rem, 5vw, 4rem) 0;
+        }
+
+        .zodiac-wheel {
+            position: relative;
+            width: clamp(250px, 80vw, 400px);
+            height: clamp(250px, 80vw, 400px);
+            animation: rotateWheel 30s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes rotateWheel {
+            0% { transform: rotateZ(0deg) rotateX(5deg); }
+            100% { transform: rotateZ(360deg) rotateX(5deg); }
+        }
+
+        .zodiac-sign {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            transform-origin: 0 0;
+        }
+
+        .zodiac-inner {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            animation: rotateInner 20s linear infinite reverse;
+            opacity: 0.3;
+        }
+
+        @keyframes rotateInner {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+
+        .zodiac-outer {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        /* Accessibility: Hidden but Read */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
 
         /* Tabs */
         .tabs {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            margin-bottom: clamp(2rem, 6vw, 3rem);
             border-bottom: 2px solid var(--border);
             justify-content: center;
             flex-wrap: wrap;
+            overflow-x: auto;
+            padding-bottom: clamp(0.5rem, 2vw, 1rem);
         }
 
         .tab-btn {
-            padding: 1rem 2rem;
+            padding: clamp(0.75rem, 2vw, 1rem) clamp(1.25rem, 3vw, 2rem);
             background: transparent;
             border: none;
-            color: var(--text-dark);
+            color: var(--text-secondary);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            font-weight: 500;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
             position: relative;
+            white-space: nowrap;
+            min-height: 44px;
         }
 
         .tab-btn.active {
@@ -197,6 +433,11 @@
 
         .tab-btn:hover {
             color: var(--accent-light);
+        }
+
+        .tab-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* Tab Content */
@@ -209,73 +450,138 @@
             display: block;
         }
 
-        /* Prediction Form */
+        /* Form Container */
         .form-container {
-            background: rgba(45, 27, 78, 0.6);
+            background: rgba(45, 27, 78, 0.4);
             border: 2px solid var(--border);
-            border-radius: 15px;
-            padding: 3rem;
-            max-width: 600px;
+            border-radius: var(--radius);
+            padding: clamp(1.5rem, 5vw, 3rem);
+            max-width: 650px;
             margin: 0 auto;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        html.light-mode .form-container {
+            background: rgba(245, 237, 224, 0.7);
+        }
+
+        .form-container h2 {
+            color: var(--accent);
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.4rem, 1vw, 0.5rem);
             color: var(--accent);
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            letter-spacing: 0.3px;
+        }
+
+        .required {
+            color: #ff9999;
+            aria-label: "required";
+        }
+
+        .form-help {
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+            font-weight: 300;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.75rem;
+            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(0.8rem, 2vw, 1rem);
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
             color: var(--text);
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 2vw, 0.95rem);
             transition: all 0.3s ease;
+            font-weight: 300;
+            min-height: 44px;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
+        html.light-mode .form-group input,
+        html.light-mode .form-group select {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-light);
+        }
+
+        .form-group input:focus-visible,
+        .form-group select:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
             border-color: var(--accent);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
         .form-group input::placeholder {
-            color: var(--text-dark);
+            color: var(--text-secondary);
+        }
+
+        .form-error {
+            color: #ff9999;
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 400;
+        }
+
+        .form-error::before {
+            content: '⚠️';
+            font-size: 0.9em;
         }
 
         /* Buttons */
         .btn {
-            padding: 0.75rem 2rem;
+            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1.5rem, 3vw, 2rem);
             border: none;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            color: var(--primary);
+            color: var(--primary-dark);
             width: 100%;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
@@ -283,30 +589,38 @@
             box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
         }
 
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
         .btn-secondary {
             background: transparent;
             border: 2px solid var(--accent);
             color: var(--accent);
-            margin: 1rem auto;
+            margin: clamp(1rem, 3vw, 1rem) auto;
             display: block;
         }
 
         .btn-secondary:hover {
             background: var(--accent);
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         /* Results */
         .prediction-result {
-            background: rgba(45, 27, 78, 0.6);
+            background: rgba(45, 27, 78, 0.4);
             border: 2px solid var(--accent);
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin-top: 2rem;
+            border-radius: var(--radius);
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            margin-top: clamp(1.5rem, 4vw, 2rem);
             backdrop-filter: blur(10px);
-            max-width: 600px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        html.light-mode .prediction-result {
+            background: rgba(245, 237, 224, 0.7);
         }
 
         .prediction-result.hidden {
@@ -315,15 +629,16 @@
 
         .result-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
             color: var(--accent);
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
             text-align: center;
+            font-weight: 600;
         }
 
         .result-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+            padding-bottom: clamp(1rem, 3vw, 1.5rem);
             border-bottom: 1px solid var(--border);
         }
 
@@ -333,68 +648,82 @@
 
         .result-label {
             color: var(--accent-light);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 500;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
             display: block;
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
         }
 
         .result-value {
             color: var(--text);
-            font-size: 1.05rem;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            font-weight: 400;
         }
 
         /* Chat Section */
         .chat-container {
-            background: rgba(45, 27, 78, 0.6);
+            background: rgba(45, 27, 78, 0.4);
             border: 2px solid var(--border);
-            border-radius: 15px;
-            padding: 3rem;
-            max-width: 700px;
+            border-radius: var(--radius);
+            padding: clamp(1.5rem, 5vw, 3rem);
+            max-width: 750px;
             margin: 0 auto;
             backdrop-filter: blur(10px);
         }
 
+        html.light-mode .chat-container {
+            background: rgba(245, 237, 224, 0.7);
+        }
+
         .chat-info {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
         }
 
         .chat-info h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            font-weight: 600;
+        }
+
+        .chat-info p {
+            color: var(--text-secondary);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            font-weight: 300;
         }
 
         .price-tag {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 6vw, 2.5rem);
             color: var(--accent);
-            font-weight: 700;
-            margin: 1rem 0;
+            font-weight: 600;
+            margin: clamp(1rem, 2vw, 1rem) 0;
         }
 
         .price-tag .currency {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
 
         .price-tag .period {
-            font-size: 1rem;
-            color: var(--text-dark);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            color: var(--text-secondary);
             font-weight: 400;
         }
 
         .chat-features {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 2rem 0;
+            border-radius: 0.5rem;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            margin: clamp(1.5rem, 4vw, 2rem) 0;
         }
 
         .chat-features h3 {
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
             font-weight: 600;
+            font-size: clamp(1rem, 2vw, 1.1rem);
         }
 
         .feature-list {
@@ -402,10 +731,11 @@
         }
 
         .feature-list li {
-            padding: 0.5rem 0;
+            padding: clamp(0.4rem, 1vw, 0.5rem) 0 clamp(0.4rem, 1vw, 0.5rem) clamp(1.5rem, 3vw, 1.5rem);
             color: var(--text);
-            padding-left: 1.5rem;
             position: relative;
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            font-weight: 300;
         }
 
         .feature-list li::before {
@@ -415,29 +745,40 @@
         }
 
         .razorpay-section {
-            margin-top: 2rem;
+            margin-top: clamp(1.5rem, 3vw, 2rem);
             text-align: center;
+        }
+
+        .razorpay-section p {
+            color: var(--text-secondary);
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            font-weight: 300;
         }
 
         /* Admin Dashboard */
         .admin-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
         }
 
         .admin-card {
-            background: rgba(45, 27, 78, 0.6);
+            background: rgba(45, 27, 78, 0.4);
             border: 2px solid var(--border);
-            border-radius: 15px;
-            padding: 2rem;
+            border-radius: var(--radius);
+            padding: clamp(1.5rem, 4vw, 2rem);
             backdrop-filter: blur(10px);
+        }
+
+        html.light-mode .admin-card {
+            background: rgba(245, 237, 224, 0.7);
         }
 
         .admin-card h3 {
             color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             font-weight: 600;
         }
 
@@ -445,7 +786,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: clamp(0.75rem, 2vw, 1rem) 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -454,30 +795,44 @@
         }
 
         .stat-label {
-            color: var(--text-dark);
+            color: var(--text-secondary);
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            font-weight: 400;
         }
 
         .stat-value {
             color: var(--accent);
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: clamp(1rem, 2vw, 1.2rem);
         }
 
         .session-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            padding: clamp(1rem, 2vw, 1rem);
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .session-item strong {
+            color: var(--text);
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            display: block;
+        }
+
+        .session-item p {
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            color: var(--text-secondary);
+            margin: clamp(0.3rem, 1vw, 0.5rem) 0;
         }
 
         .session-status {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
+            padding: clamp(0.25rem, 1vw, 0.3rem) clamp(0.6rem, 1.5vw, 0.8rem);
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem);
             font-weight: 600;
-            margin-top: 0.5rem;
+            margin-top: clamp(0.4rem, 1vw, 0.5rem);
         }
 
         .status-active {
@@ -494,10 +849,14 @@
         footer {
             background: rgba(26, 0, 51, 0.95);
             border-top: 2px solid var(--accent);
-            padding: 2rem;
+            padding: clamp(1.5rem, 4vw, 2rem);
             text-align: center;
-            color: var(--text-dark);
-            margin-top: 4rem;
+            color: var(--text-secondary);
+            margin-top: clamp(3rem, 8vw, 4rem);
+        }
+
+        html.light-mode footer {
+            background: rgba(248, 247, 244, 0.95);
         }
 
         .footer-content {
@@ -506,25 +865,40 @@
         }
 
         .footer-content p {
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.4rem, 1vw, 0.5rem);
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            font-weight: 300;
         }
 
         .social-links {
-            margin-top: 1rem;
+            margin-top: clamp(1rem, 2vw, 1rem);
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: clamp(1.5rem, 4vw, 2rem);
+            flex-wrap: wrap;
         }
 
         .social-links a {
             color: var(--accent);
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .social-links a:hover {
+        .social-links a:hover,
+        .social-links a:focus {
             color: var(--accent-light);
             transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* Animations */
@@ -563,45 +937,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            nav {
-                gap: 1.5rem;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .form-container {
-                padding: 2rem;
-            }
-
-            .admin-container {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs {
-                gap: 0.5rem;
-            }
-
-            .tab-btn {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .container {
-                padding: 2rem 1rem;
-            }
-        }
-
         /* Modal */
         .modal {
             display: none;
@@ -614,6 +949,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            padding: clamp(1rem, 3vw, 2rem);
         }
 
         .modal.active {
@@ -623,12 +959,13 @@
         .modal-content {
             background: var(--secondary);
             border: 2px solid var(--accent);
-            border-radius: 15px;
-            padding: 3rem;
+            border-radius: var(--radius);
+            padding: clamp(1.5rem, 5vw, 3rem);
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.3s ease-out;
+            position: relative;
         }
 
         @keyframes slideIn {
@@ -643,28 +980,46 @@
         }
 
         .modal-header {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 600;
         }
 
         .close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: clamp(0.75rem, 2vw, 1rem);
+            right: clamp(0.75rem, 2vw, 1rem);
             background: none;
             border: none;
             color: var(--text);
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             cursor: pointer;
+            transition: transform 0.2s ease;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.1);
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
         }
 
         .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            padding: clamp(0.75rem, 2vw, 1rem);
+            border-radius: 0.5rem;
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
             text-align: center;
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            font-weight: 400;
         }
 
         .alert-success {
@@ -682,17 +1037,121 @@
         .hidden {
             display: none;
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(26, 0, 51, 0.98);
+                border-bottom: 2px solid var(--accent);
+                padding: clamp(1rem, 3vw, 1.5rem);
+                gap: clamp(0.75rem, 2vw, 1rem);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            nav.active {
+                max-height: 400px;
+            }
+
+            .header-container {
+                justify-content: space-between;
+            }
+
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .logo span {
+                white-space: nowrap;
+            }
+
+            .zodiac-wheel-container {
+                margin: clamp(1rem, 3vw, 2rem) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tabs {
+                gap: clamp(0.25rem, 1vw, 0.5rem);
+            }
+
+            .tab-btn {
+                padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
+            }
+
+            .container {
+                padding: clamp(1rem, 3vw, 1.5rem) clamp(0.75rem, 2vw, 1rem);
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: clamp(0.75rem, 2vw, 1rem);
+            }
+
+            .hero h1 {
+                word-break: break-word;
+            }
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: more) {
+            --text: #ffffff;
+            --text-secondary: #e0e0e0;
+            border-width: 3px;
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, footer, nav, .theme-toggle, .mobile-menu-btn, .tabs {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to Main Content (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Animated Star Canvas -->
+    <canvas id="starCanvas" aria-hidden="true"></canvas>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">🌙</button>
+
     <!-- Header -->
-    <header>
+    <header role="banner">
         <div class="header-container">
-            <div class="logo">
+            <div class="logo" role="img" aria-label="Shree Ayush Saxena - Vedic Astrologer">
                 🌙 SHREE AYUSH SAXENA
                 <span>Vedic Astrologer</span>
             </div>
-            <nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">☰</button>
+            <nav id="navMenu" role="navigation" aria-label="Main Navigation">
                 <button onclick="switchTab('prediction')" class="tab-nav">Prediction</button>
                 <button onclick="switchTab('chat')" class="tab-nav">Premium Chat</button>
                 <button onclick="switchTab('admin')" class="tab-nav">Admin</button>
@@ -701,249 +1160,456 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
-            <h1>Discover Your Cosmic Destiny</h1>
-            <p>Welcome to the astrology consultation platform of Shree Ayush Saxena. Unlock the mysteries of the universe and understand your life path through ancient Vedic wisdom.</p>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('prediction')">Free Prediction</button>
-            <button class="tab-btn" onclick="switchTab('chat')">Premium Chat</button>
-            <button class="tab-btn" onclick="switchTab('admin')">Admin Dashboard</button>
-        </div>
-
-        <!-- Prediction Tab -->
-        <div id="prediction" class="tab-content active">
-            <div class="form-container">
-                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center; font-family: 'Playfair Display', serif;">Get Your Free Prediction</h2>
-                
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your full name" required>
+    <main id="main-content">
+        <div class="container">
+            <!-- Hero Section with 3D Background -->
+            <div class="hero">
+                <div class="hero-background" aria-hidden="true">
+                    <div class="floating-zodiac zodiac-1">♈</div>
+                    <div class="floating-zodiac zodiac-2">♓</div>
+                    <div class="floating-zodiac zodiac-3">♉</div>
+                    <div class="floating-zodiac zodiac-4">♐</div>
                 </div>
-
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="tob">Time of Birth (Optional)</label>
-                    <input type="time" id="tob">
-                </div>
-
-                <div class="form-group">
-                    <label for="place">Place of Birth</label>
-                    <input type="text" id="place" placeholder="City, Country" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <button class="btn btn-primary" onclick="generatePrediction()">✨ Generate Prediction</button>
+                <h1>Discover Your Cosmic Destiny</h1>
+                <p>Welcome to the astrology consultation platform of Shree Ayush Saxena. Unlock the mysteries of the universe and understand your life path through ancient Vedic wisdom.</p>
             </div>
 
-            <!-- Prediction Result -->
-            <div id="predictionResult" class="prediction-result hidden">
-                <h3 class="result-title">Your Cosmic Profile</h3>
-                
-                <div class="result-item">
-                    <span class="result-label">Name</span>
-                    <span class="result-value" id="resultName"></span>
+            <!-- 3D Zodiac Wheel -->
+            <div class="zodiac-wheel-container" role="img" aria-label="Animated rotating zodiac wheel with all 12 zodiac signs: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, and Pisces">
+                <div class="zodiac-wheel" aria-hidden="true">
+                    <div class="zodiac-inner"></div>
+                    <div class="zodiac-outer"></div>
+                    <div class="zodiac-sign" style="transform: rotateZ(0deg) translateY(-180px);">♈</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(30deg) translateY(-180px);">♉</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(60deg) translateY(-180px);">♊</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(90deg) translateY(-180px);">♋</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(120deg) translateY(-180px);">♌</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(150deg) translateY(-180px);">♍</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(180deg) translateY(-180px);">♎</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(210deg) translateY(-180px);">♏</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(240deg) translateY(-180px);">♐</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(270deg) translateY(-180px);">♑</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(300deg) translateY(-180px);">♒</div>
+                    <div class="zodiac-sign" style="transform: rotateZ(330deg) translateY(-180px);">♓</div>
                 </div>
-
-                <div class="result-item">
-                    <span class="result-label">Zodiac Sign</span>
-                    <span class="result-value" id="resultZodiac"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Age</span>
-                    <span class="result-value" id="resultAge"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Lucky Number</span>
-                    <span class="result-value" id="resultLucky"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Lucky Color</span>
-                    <span class="result-value" id="resultColor"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Element</span>
-                    <span class="result-value" id="resultElement"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Personality Insight</span>
-                    <span class="result-value" id="resultInsight"></span>
-                </div>
-
-                <div class="result-item">
-                    <span class="result-label">Best Days for Important Tasks</span>
-                    <span class="result-value" id="resultDays"></span>
-                </div>
-
-                <button class="btn btn-secondary" onclick="resetPrediction()">← New Prediction</button>
             </div>
-        </div>
 
-        <!-- Premium Chat Tab -->
-        <div id="chat" class="tab-content">
-            <div class="chat-container">
-                <div class="chat-info">
-                    <h2>🔮 Connect with the Astrologer</h2>
-                    <p style="color: var(--text-dark); margin: 1rem 0;">Get personalized guidance and detailed analysis from Shree Ayush Saxena</p>
+            <!-- Tabs -->
+            <div class="tabs" role="tablist">
+                <button class="tab-btn active" onclick="switchTab('prediction')" role="tab" aria-selected="true" aria-controls="prediction">Free Prediction</button>
+                <button class="tab-btn" onclick="switchTab('chat')" role="tab" aria-selected="false" aria-controls="chat">Premium Chat</button>
+                <button class="tab-btn" onclick="switchTab('admin')" role="tab" aria-selected="false" aria-controls="admin">Admin Dashboard</button>
+            </div>
+
+            <!-- Prediction Tab -->
+            <div id="prediction" class="tab-content active" role="tabpanel" aria-live="polite" aria-labelledby="prediction">
+                <div class="form-container">
+                    <h2>Get Your Free Prediction</h2>
+                    <form id="predictionForm" onsubmit="handlePredictionSubmit(event)" novalidate>
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name"
+                                placeholder="Enter your full name" 
+                                required 
+                                aria-required="true"
+                                aria-describedby="nameHelp"
+                            >
+                            <div class="form-help" id="nameHelp">Enter your complete name as you would like it to appear</div>
+                            <div class="form-error hidden" id="nameError" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Date of Birth <span class="required">*</span></label>
+                            <input 
+                                type="date" 
+                                id="dob"
+                                name="dob"
+                                required 
+                                aria-required="true"
+                                aria-describedby="dobHelp"
+                            >
+                            <div class="form-help" id="dobHelp">Select your birth date to calculate your zodiac sign</div>
+                            <div class="form-error hidden" id="dobError" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tob">Time of Birth (Optional)</label>
+                            <input 
+                                type="time" 
+                                id="tob"
+                                name="tob"
+                                aria-describedby="tobHelp"
+                            >
+                            <div class="form-help" id="tobHelp">Accurate time improves prediction accuracy</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="place">Place of Birth <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                id="place"
+                                name="place"
+                                placeholder="City, Country" 
+                                required 
+                                aria-required="true"
+                                aria-describedby="placeHelp"
+                            >
+                            <div class="form-help" id="placeHelp">Your birth city and country for location-based analysis</div>
+                            <div class="form-error hidden" id="placeError" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender <span class="required">*</span></label>
+                            <select 
+                                id="gender"
+                                name="gender"
+                                required 
+                                aria-required="true"
+                                aria-describedby="genderHelp"
+                            >
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="form-help" id="genderHelp">This helps in personalizing your prediction</div>
+                            <div class="form-error hidden" id="genderError" role="alert"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" aria-label="Click to generate your personalized astrology prediction">✨ Generate Prediction</button>
+                    </form>
+                </div>
+
+                <!-- Prediction Result -->
+                <div id="predictionResult" class="prediction-result hidden" role="region" aria-live="polite" aria-label="Your personalized astrology prediction results">
+                    <h3 class="result-title">Your Cosmic Profile</h3>
                     
-                    <div class="price-tag">
-                        <span class="currency">₹</span>500
-                        <span class="period">/ 30 minutes</span>
+                    <div class="result-item">
+                        <span class="result-label">Name</span>
+                        <span class="result-value" id="resultName"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Zodiac Sign</span>
+                        <span class="result-value" id="resultZodiac" role="img"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Age</span>
+                        <span class="result-value" id="resultAge"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Lucky Number</span>
+                        <span class="result-value" id="resultLucky"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Lucky Color</span>
+                        <span class="result-value" id="resultColor"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Element</span>
+                        <span class="result-value" id="resultElement"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Personality Insight</span>
+                        <span class="result-value" id="resultInsight"></span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Best Days for Important Tasks</span>
+                        <span class="result-value" id="resultDays"></span>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="resetPrediction()" aria-label="Reset form and get a new prediction">← New Prediction</button>
+                </div>
+            </div>
+
+            <!-- Premium Chat Tab -->
+            <div id="chat" class="tab-content" role="tabpanel" aria-label="Premium chat session booking" aria-labelledby="chat">
+                <div class="chat-container">
+                    <div class="chat-info">
+                        <h2>🔮 Connect with the Astrologer</h2>
+                        <p>Get personalized guidance and detailed analysis from Shree Ayush Saxena</p>
+                        
+                        <div class="price-tag">
+                            <span class="currency">₹</span>500
+                            <span class="period">/ 30 minutes</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-features">
+                        <h3>What You Get:</h3>
+                        <ul class="feature-list">
+                            <li>Real-time chat with the astrologer</li>
+                            <li>Detailed birth chart analysis</li>
+                            <li>Career & relationship guidance</li>
+                            <li>Remedies and solutions</li>
+                            <li>Future prediction insights</li>
+                            <li>Session recording (if desired)</li>
+                        </ul>
+                    </div>
+
+                    <div class="razorpay-section">
+                        <p>Secure payment via Razorpay</p>
+                        <button class="btn btn-primary" onclick="initiateRazorpayPayment()" aria-label="Proceed to book a premium chat session with secure payment">💳 Book Chat Session</button>
+                    </div>
+
+                    <div id="paymentStatus" class="hidden" role="alert" aria-live="assertive"></div>
+                </div>
+            </div>
+
+            <!-- Admin Dashboard Tab -->
+            <div id="admin" class="tab-content" role="tabpanel" aria-label="Admin dashboard for analytics and settings" aria-labelledby="admin">
+                <div style="text-align: center; margin-bottom: clamp(1.5rem, 4vw, 2rem);">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2rem); color: var(--accent); font-weight: 600;">Admin Dashboard</h2>
+                    <button class="btn btn-secondary" onclick="toggleAdminLogin()" aria-label="Click to open admin login modal" style="width: auto; margin-top: clamp(0.75rem, 2vw, 1rem);">Admin Login</button>
+                </div>
+
+                <div id="adminLoginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+                    <div class="modal-content">
+                        <button class="close-btn" onclick="toggleAdminLogin()" aria-label="Close login modal">×</button>
+                        <div class="modal-header" id="adminModalTitle">Admin Authentication</div>
+                        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" novalidate>
+                            <div class="form-group">
+                                <label for="adminPassword">Admin Password <span class="required">*</span></label>
+                                <input 
+                                    type="password" 
+                                    id="adminPassword"
+                                    name="adminPassword"
+                                    placeholder="Enter admin password" 
+                                    required 
+                                    aria-required="true"
+                                    aria-describedby="passwordHelp"
+                                >
+                                <div class="form-help" id="passwordHelp">Default password: admin123 (change in production)</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <div id="authError" class="alert alert-error hidden" role="alert" aria-live="assertive"></div>
                     </div>
                 </div>
 
-                <div class="chat-features">
-                    <h3>What You Get:</h3>
-                    <ul class="feature-list">
-                        <li>Real-time chat with the astrologer</li>
-                        <li>Detailed birth chart analysis</li>
-                        <li>Career & relationship guidance</li>
-                        <li>Remedies and solutions</li>
-                        <li>Future prediction insights</li>
-                        <li>Session recording (if desired)</li>
-                    </ul>
-                </div>
+                <div id="adminContent" class="hidden">
+                    <div class="admin-container">
+                        <!-- Stats Card -->
+                        <div class="admin-card">
+                            <h3>📊 Today's Statistics</h3>
+                            <div class="stat">
+                                <span class="stat-label">Free Predictions</span>
+                                <span class="stat-value" id="statPredictions" aria-live="polite">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Chat Sessions</span>
+                                <span class="stat-value" id="statSessions" aria-live="polite">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Total Revenue</span>
+                                <span class="stat-value" id="statRevenue" aria-live="polite">₹0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Pending Sessions</span>
+                                <span class="stat-value pulse" id="statPending" aria-live="polite">0</span>
+                            </div>
+                        </div>
 
-                <div class="razorpay-section">
-                    <p style="color: var(--text-dark); margin-bottom: 1.5rem;">Secure payment via Razorpay</p>
-                    <button class="btn btn-primary" onclick="initiateRazorpayPayment()">💳 Book Chat Session</button>
-                </div>
+                        <!-- Active Sessions -->
+                        <div class="admin-card">
+                            <h3>💬 Recent Sessions</h3>
+                            <div id="sessionsList" role="region" aria-label="Recent payment sessions" aria-live="polite">
+                                <p style="color: var(--text-secondary); text-align: center; padding: clamp(1rem, 3vw, 2rem) 0;">No sessions yet</p>
+                            </div>
+                        </div>
 
-                <div id="paymentStatus" class="hidden" style="margin-top: 1.5rem;"></div>
+                        <!-- User Queries -->
+                        <div class="admin-card">
+                            <h3>👥 Recent Users</h3>
+                            <div id="usersList" role="region" aria-label="Recently added users" aria-live="polite">
+                                <p style="color: var(--text-secondary); text-align: center; padding: clamp(1rem, 3vw, 2rem) 0;">No users yet</p>
+                            </div>
+                        </div>
+
+                        <!-- Settings -->
+                        <div class="admin-card">
+                            <h3>⚙️ Settings</h3>
+                            <form id="settingsForm" onsubmit="handleSaveSettings(event)" novalidate>
+                                <div class="form-group">
+                                    <label for="chatPrice">Chat Session Price (₹) <span class="required">*</span></label>
+                                    <input 
+                                        type="number" 
+                                        id="chatPrice"
+                                        name="chatPrice"
+                                        value="500" 
+                                        required 
+                                        aria-required="true"
+                                        min="0"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="chatDuration">Session Duration (minutes) <span class="required">*</span></label>
+                                    <input 
+                                        type="number" 
+                                        id="chatDuration"
+                                        name="chatDuration"
+                                        value="30" 
+                                        required 
+                                        aria-required="true"
+                                        min="1"
+                                    >
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" style="margin-top: clamp(1.5rem, 4vw, 2rem);" onclick="logoutAdmin()" aria-label="Logout from admin account">Logout</button>
+                </div>
             </div>
         </div>
-
-        <!-- Admin Dashboard Tab -->
-        <div id="admin" class="tab-content">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent);">Admin Dashboard</h2>
-                <button class="btn btn-secondary" onclick="toggleAdminLogin()" style="width: auto; margin-top: 1rem;">Admin Login</button>
-            </div>
-
-            <div id="adminLoginModal" class="modal">
-                <div class="modal-content" style="position: relative;">
-                    <button class="close-btn" onclick="toggleAdminLogin()">×</button>
-                    <div class="modal-header">Admin Authentication</div>
-                    <div class="form-group">
-                        <label for="adminPassword">Admin Password</label>
-                        <input type="password" id="adminPassword" placeholder="Enter admin password">
-                    </div>
-                    <button class="btn btn-primary" onclick="authenticateAdmin()">Login</button>
-                    <div id="authError" class="alert alert-error hidden" style="margin-top: 1rem;"></div>
-                </div>
-            </div>
-
-            <div id="adminContent" class="hidden">
-                <div class="admin-container">
-                    <!-- Stats Card -->
-                    <div class="admin-card">
-                        <h3>📊 Today's Statistics</h3>
-                        <div class="stat">
-                            <span class="stat-label">Free Predictions</span>
-                            <span class="stat-value" id="statPredictions">0</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">Chat Sessions</span>
-                            <span class="stat-value" id="statSessions">0</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">Total Revenue</span>
-                            <span class="stat-value" id="statRevenue">₹0</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">Pending Sessions</span>
-                            <span class="stat-value pulse" id="statPending">0</span>
-                        </div>
-                    </div>
-
-                    <!-- Active Sessions -->
-                    <div class="admin-card">
-                        <h3>💬 Recent Sessions</h3>
-                        <div id="sessionsList">
-                            <p style="color: var(--text-dark); text-align: center; padding: 2rem 0;">No sessions yet</p>
-                        </div>
-                    </div>
-
-                    <!-- User Queries -->
-                    <div class="admin-card">
-                        <h3>👥 Recent Users</h3>
-                        <div id="usersList">
-                            <p style="color: var(--text-dark); text-align: center; padding: 2rem 0;">No users yet</p>
-                        </div>
-                    </div>
-
-                    <!-- Settings -->
-                    <div class="admin-card">
-                        <h3>⚙️ Settings</h3>
-                        <div class="form-group">
-                            <label for="chatPrice">Chat Session Price (₹)</label>
-                            <input type="number" id="chatPrice" value="500">
-                        </div>
-                        <div class="form-group">
-                            <label for="chatDuration">Session Duration (minutes)</label>
-                            <input type="number" id="chatDuration" value="30">
-                        </div>
-                        <button class="btn btn-primary" onclick="saveAdminSettings()">Save Settings</button>
-                    </div>
-                </div>
-
-                <button class="btn btn-secondary" style="margin-top: 2rem;" onclick="logoutAdmin()">Logout</button>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-content">
             <p><strong>🌟 Shree Ayush Saxena</strong> - Vedic Astrologer</p>
             <p>Serving with cosmic wisdom since 2020 | Certified in Vedic Astrology</p>
-            <div class="social-links">
-                <a href="#">Instagram</a>
-                <a href="#">Facebook</a>
-                <a href="#">WhatsApp</a>
-                <a href="#">Email</a>
+            <div class="social-links" role="navigation" aria-label="Social media links">
+                <a href="#" aria-label="Visit our Instagram profile">Instagram</a>
+                <a href="#" aria-label="Visit our Facebook page">Facebook</a>
+                <a href="#" aria-label="Contact us on WhatsApp">WhatsApp</a>
+                <a href="#" aria-label="Send us an email">Email</a>
             </div>
-            <p style="margin-top: 2rem; font-size: 0.9rem;">© 2024 All Rights Reserved | Privacy Policy</p>
+            <p style="margin-top: clamp(1rem, 2vw, 1.5rem); font-size: clamp(0.8rem, 1.5vw, 0.9rem);">© 2024 All Rights Reserved | <a href="#" style="color: var(--accent);">Privacy Policy</a></p>
         </div>
     </footer>
 
     <script>
-        // Zodiac Signs and Properties
+        // ==================== ANIMATED STAR CANVAS ====================
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const stars = [];
+        const starsCount = 100;
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * 100;
+                this.size = Math.random() * 1.5;
+                this.vz = (Math.random() + 0.5) * 0.5;
+            }
+
+            update() {
+                this.z -= this.vz;
+                if (this.z <= 0) {
+                    this.z = 100;
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                }
+            }
+
+            draw() {
+                const scale = this.z / 100;
+                const x = (this.x - canvas.width / 2) * scale + canvas.width / 2;
+                const y = (this.y - canvas.height / 2) * scale + canvas.height / 2;
+                const size = this.size * (1 - scale);
+                const opacity = Math.min(1, scale);
+
+                ctx.fillStyle = `rgba(212, 175, 55, ${opacity * 0.6})`;
+                ctx.fillRect(x, y, size, size);
+            }
+        }
+
+        for (let i = 0; i < starsCount; i++) {
+            stars.push(new Star());
+        }
+
+        function animate() {
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // ==================== THEME TOGGLE ====================
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            html.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            themeToggle.textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            announceToScreenReader(`Theme switched to ${isLight ? 'light' : 'dark'} mode`);
+        });
+
+        // ==================== MOBILE MENU ====================
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+            announceToScreenReader(`Menu ${navMenu.classList.contains('active') ? 'opened' : 'closed'}`);
+        });
+
+        document.querySelectorAll('.tab-nav').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Keyboard navigation for mobile menu
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.focus();
+            }
+        });
+
+        // ==================== ZODIAC DATA ====================
         const zodiacSigns = {
-            'Capricorn': { dates: [12, 22, 1, 19], element: 'Earth', luckyNum: 8, color: 'Brown' },
-            'Aquarius': { dates: [1, 20, 2, 18], element: 'Air', luckyNum: 4, color: 'Blue' },
-            'Pisces': { dates: [2, 19, 3, 20], element: 'Water', luckyNum: 7, color: 'Sea Green' },
-            'Aries': { dates: [3, 21, 4, 19], element: 'Fire', luckyNum: 9, color: 'Red' },
-            'Taurus': { dates: [4, 20, 5, 20], element: 'Earth', luckyNum: 6, color: 'Green' },
-            'Gemini': { dates: [5, 21, 6, 20], element: 'Air', luckyNum: 5, color: 'Yellow' },
-            'Cancer': { dates: [6, 21, 7, 22], element: 'Water', luckyNum: 2, color: 'Silver' },
-            'Leo': { dates: [7, 23, 8, 22], element: 'Fire', luckyNum: 1, color: 'Gold' },
-            'Virgo': { dates: [8, 23, 9, 22], element: 'Earth', luckyNum: 5, color: 'Green' },
-            'Libra': { dates: [9, 23, 10, 22], element: 'Air', luckyNum: 6, color: 'Blue' },
-            'Scorpio': { dates: [10, 23, 11, 21], element: 'Water', luckyNum: 8, color: 'Maroon' },
-            'Sagittarius': { dates: [11, 22, 12, 21], element: 'Fire', luckyNum: 9, color: 'Purple' }
+            'Capricorn': { dates: [12, 22, 1, 19], element: 'Earth', luckyNum: 8, color: 'Brown', emoji: '♑' },
+            'Aquarius': { dates: [1, 20, 2, 18], element: 'Air', luckyNum: 4, color: 'Blue', emoji: '♒' },
+            'Pisces': { dates: [2, 19, 3, 20], element: 'Water', luckyNum: 7, color: 'Sea Green', emoji: '♓' },
+            'Aries': { dates: [3, 21, 4, 19], element: 'Fire', luckyNum: 9, color: 'Red', emoji: '♈' },
+            'Taurus': { dates: [4, 20, 5, 20], element: 'Earth', luckyNum: 6, color: 'Green', emoji: '♉' },
+            'Gemini': { dates: [5, 21, 6, 20], element: 'Air', luckyNum: 5, color: 'Yellow', emoji: '♊' },
+            'Cancer': { dates: [6, 21, 7, 22], element: 'Water', luckyNum: 2, color: 'Silver', emoji: '♋' },
+            'Leo': { dates: [7, 23, 8, 22], element: 'Fire', luckyNum: 1, color: 'Gold', emoji: '♌' },
+            'Virgo': { dates: [8, 23, 9, 22], element: 'Earth', luckyNum: 5, color: 'Green', emoji: '♍' },
+            'Libra': { dates: [9, 23, 10, 22], element: 'Air', luckyNum: 6, color: 'Blue', emoji: '♎' },
+            'Scorpio': { dates: [10, 23, 11, 21], element: 'Water', luckyNum: 8, color: 'Maroon', emoji: '♏' },
+            'Sagittarius': { dates: [11, 22, 12, 21], element: 'Fire', luckyNum: 9, color: 'Purple', emoji: '♐' }
         };
 
         const insights = {
@@ -960,19 +1626,56 @@
             'Water': 'Monday & Friday'
         };
 
-        // Tab Switching
+        // ==================== ACCESSIBILITY HELPERS ====================
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.className = 'sr-only';
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+        }
+
+        function clearError(fieldName) {
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+                errorElement.textContent = '';
+            }
+        }
+
+        function showError(fieldName, message) {
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+        }
+
+        // ==================== TAB SWITCHING ====================
         function switchTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-btn');
             
             tabs.forEach(tab => tab.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
             
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            const activeTab = document.getElementById(tabName);
+            const activeBtn = event.target;
+            
+            if (activeTab) {
+                activeTab.classList.add('active');
+                activeBtn.classList.add('active');
+                activeBtn.setAttribute('aria-selected', 'true');
+                announceToScreenReader(`${tabName} tab is now active`);
+            }
         }
 
-        // Get Zodiac Sign
+        // ==================== ZODIAC LOGIC ====================
         function getZodiacSign(month, day) {
             for (let sign in zodiacSigns) {
                 const [m1, d1, m2, d2] = zodiacSigns[sign].dates;
@@ -982,7 +1685,6 @@
             }
         }
 
-        // Calculate Age
         function calculateAge(birthDate) {
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -994,15 +1696,44 @@
             return age;
         }
 
-        // Generate Prediction
+        // ==================== PREDICTION ====================
+        function handlePredictionSubmit(event) {
+            event.preventDefault();
+            generatePrediction();
+        }
+
         function generatePrediction() {
             const name = document.getElementById('name').value.trim();
             const dob = document.getElementById('dob').value;
             const place = document.getElementById('place').value.trim();
             const gender = document.getElementById('gender').value;
 
-            if (!name || !dob || !place || !gender) {
-                alert('Please fill in all required fields');
+            ['name', 'dob', 'place', 'gender'].forEach(field => clearError(field));
+
+            let isValid = true;
+
+            if (!name) {
+                showError('name', 'Please enter your full name');
+                isValid = false;
+            }
+
+            if (!dob) {
+                showError('dob', 'Please select your date of birth');
+                isValid = false;
+            }
+
+            if (!place) {
+                showError('place', 'Please enter your birth place');
+                isValid = false;
+            }
+
+            if (!gender) {
+                showError('gender', 'Please select your gender');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                announceToScreenReader('Please fix the errors in the form');
                 return;
             }
 
@@ -1016,69 +1747,45 @@
             const insight = insights[props.element];
             const days = luckDays[props.element];
 
-            // Display Results
             document.getElementById('resultName').textContent = name;
-            document.getElementById('resultZodiac').textContent = zodiac;
-            document.getElementById('resultAge').textContent = age + ' years';
+            document.getElementById('resultZodiac').textContent = `${zodiac} ${props.emoji}`;
+            document.getElementById('resultAge').textContent = age + ' years old';
             document.getElementById('resultLucky').textContent = props.luckyNum;
             document.getElementById('resultColor').textContent = props.color;
             document.getElementById('resultElement').textContent = props.element;
             document.getElementById('resultInsight').textContent = insight;
             document.getElementById('resultDays').textContent = days;
 
-            // Save to local storage for admin
             saveUserData(name, zodiac, place, gender, dob);
 
             document.getElementById('predictionResult').classList.remove('hidden');
-            setTimeout(() => document.getElementById('predictionResult').scrollIntoView({ behavior: 'smooth' }), 100);
+            announceToScreenReader(`Prediction ready. ${zodiac} sign information is now displayed`);
+            
+            setTimeout(() => {
+                document.getElementById('predictionResult').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
-        // Reset Prediction
         function resetPrediction() {
-            document.getElementById('name').value = '';
-            document.getElementById('dob').value = '';
-            document.getElementById('tob').value = '';
-            document.getElementById('place').value = '';
-            document.getElementById('gender').value = '';
+            document.getElementById('predictionForm').reset();
             document.getElementById('predictionResult').classList.add('hidden');
+            ['name', 'dob', 'place', 'gender'].forEach(field => clearError(field));
+            document.getElementById('name').focus();
+            announceToScreenReader('Form reset. Ready for new prediction');
         }
 
-        // Save User Data
         function saveUserData(name, zodiac, place, gender, dob) {
             const users = JSON.parse(localStorage.getItem('astroUsers') || '[]');
-            users.push({ name, zodiac, place, gender, dob, timestamp: new Date().toLocaleString() });
+            users.push({ 
+                name, zodiac, place, gender, dob, 
+                timestamp: new Date().toLocaleString() 
+            });
             localStorage.setItem('astroUsers', JSON.stringify(users));
         }
 
-        // Razorpay Payment
+        // ==================== PAYMENT ====================
         function initiateRazorpayPayment() {
-            const paymentAmount = 50000; // 500 INR in paise
-            
-            // Note: In production, you need to integrate actual Razorpay
-            const options = {
-                "key": "YOUR_RAZORPAY_KEY_ID", // Replace with your key
-                "amount": paymentAmount,
-                "currency": "INR",
-                "name": "Shree Ayush Saxena",
-                "description": "Premium Astrology Chat Session",
-                "image": "https://via.placeholder.com/100",
-                "handler": function(response) {
-                    if (response.razorpay_payment_id) {
-                        savePaymentData(response);
-                        showPaymentSuccess();
-                    }
-                },
-                "prefill": {
-                    "name": "",
-                    "email": "",
-                    "contact": ""
-                },
-                "theme": {
-                    "color": "#d4af37"
-                }
-            };
-
-            // For demo: Show confirmation dialog
+            announceToScreenReader('Opening payment dialog');
             const confirmPayment = confirm('Razorpay Payment Gateway\n\nAmount: ₹500\nSession: 30 minutes\n\nClick OK to proceed (Demo Mode)');
             
             if (confirmPayment) {
@@ -1087,7 +1794,6 @@
             }
         }
 
-        // Save Payment Data
         function savePaymentData(response) {
             const payments = JSON.parse(localStorage.getItem('astroPayments') || '[]');
             payments.push({
@@ -1099,30 +1805,42 @@
             localStorage.setItem('astroPayments', JSON.stringify(payments));
         }
 
-        // Show Payment Success
         function showPaymentSuccess() {
             const statusDiv = document.getElementById('paymentStatus');
-            statusDiv.innerHTML = '<div class="alert alert-success">✅ Payment successful! The astrologer will connect with you shortly via chat.</div>';
+            statusDiv.innerHTML = '<div class="alert alert-success" role="alert">✅ Payment successful! The astrologer will connect with you shortly via chat.</div>';
             statusDiv.classList.remove('hidden');
+            announceToScreenReader('Payment successful. The astrologer will contact you soon.');
             setTimeout(() => statusDiv.classList.add('hidden'), 5000);
         }
 
-        // Admin Functions
+        // ==================== ADMIN ====================
         function toggleAdminLogin() {
             document.getElementById('adminLoginModal').classList.toggle('active');
+            if (document.getElementById('adminLoginModal').classList.contains('active')) {
+                document.getElementById('adminPassword').focus();
+                announceToScreenReader('Admin login modal opened');
+            }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            authenticateAdmin();
         }
 
         function authenticateAdmin() {
             const password = document.getElementById('adminPassword').value;
-            const correctPassword = 'admin123'; // Change this in production
+            const correctPassword = 'admin123';
             
             if (password === correctPassword) {
                 document.getElementById('adminLoginModal').classList.remove('active');
                 document.getElementById('adminContent').classList.remove('hidden');
                 updateAdminDashboard();
+                announceToScreenReader('Admin login successful. Dashboard loaded');
             } else {
-                document.getElementById('authError').textContent = 'Invalid password';
+                document.getElementById('authError').textContent = 'Invalid password. Please try again. (Demo: admin123)';
                 document.getElementById('authError').classList.remove('hidden');
+                announceToScreenReader('Invalid password');
+                document.getElementById('adminPassword').focus();
             }
         }
 
@@ -1139,38 +1857,47 @@
             document.getElementById('statRevenue').textContent = '₹' + totalRevenue;
             document.getElementById('statPending').textContent = payments.filter(p => p.status === 'pending').length;
 
-            // Update sessions list
             const sessionsList = document.getElementById('sessionsList');
             if (payments.length > 0) {
                 sessionsList.innerHTML = payments.slice(-3).map(p => `
                     <div class="session-item">
                         <strong>Session #${p.paymentId.slice(-6)}</strong>
-                        <p style="font-size: 0.9rem; color: var(--text-dark);">₹${p.amount} - ${p.timestamp}</p>
+                        <p>₹${p.amount} - ${p.timestamp}</p>
                         <span class="session-status status-active">✓ Completed</span>
                     </div>
                 `).join('');
             }
 
-            // Update users list
             const usersList = document.getElementById('usersList');
             if (users.length > 0) {
                 usersList.innerHTML = users.slice(-3).map(u => `
                     <div class="session-item">
                         <strong>${u.name}</strong>
-                        <p style="font-size: 0.9rem; color: var(--text-dark);">${u.zodiac} • ${u.gender}</p>
-                        <p style="font-size: 0.85rem; color: var(--text-dark);">📍 ${u.place}</p>
+                        <p>${u.zodiac} • ${u.gender}</p>
+                        <p>📍 ${u.place}</p>
                     </div>
                 `).join('');
             }
+        }
+
+        function handleSaveSettings(event) {
+            event.preventDefault();
+            saveAdminSettings();
         }
 
         function saveAdminSettings() {
             const price = document.getElementById('chatPrice').value;
             const duration = document.getElementById('chatDuration').value;
             
+            if (!price || !duration || price < 0 || duration < 1) {
+                alert('Please enter valid values');
+                return;
+            }
+
             localStorage.setItem('chatPrice', price);
             localStorage.setItem('chatDuration', duration);
             
+            announceToScreenReader('Settings saved successfully');
             alert('Settings saved successfully!');
         }
 
@@ -1178,21 +1905,25 @@
             document.getElementById('adminContent').classList.add('hidden');
             document.getElementById('adminPassword').value = '';
             document.getElementById('authError').classList.add('hidden');
+            announceToScreenReader('Admin logged out');
         }
 
-        // Navigation Helper
-        document.querySelectorAll('.tab-nav').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                const tabName = this.textContent.toLowerCase().split(' ')[0];
-                document.getElementById(tabName)?.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Load settings on page load
+        // ==================== INITIALIZATION ====================
         window.addEventListener('load', () => {
             const savedPrice = localStorage.getItem('chatPrice');
             if (savedPrice) document.getElementById('chatPrice').value = savedPrice;
+            
+            // Focus management
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (document.getElementById('adminLoginModal').classList.contains('active')) {
+                        toggleAdminLogin();
+                    }
+                }
+            });
+
+            // Announce page loaded
+            announceToScreenReader('Astrology website loaded. Press tab to navigate or use skip to main content link');
         });
     </script>
 </body>
