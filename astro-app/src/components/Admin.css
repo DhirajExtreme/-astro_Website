@@ -1,0 +1,107 @@
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.admin-login__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: var(--accent-gold);
+  letter-spacing: 3px;
+}
+.admin-login__form { width: 100%; max-width: 420px; }
+.admin-login__err {
+  color: #e87a7a;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-dash { padding: 3rem 0 5rem; }
+.admin-dash__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-dash__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.admin-stat { text-align: center; }
+.admin-stat__val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+.admin-stat__label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  letter-spacing: 1px;
+}
+
+.admin-dash__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.admin-card__title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+
+.admin-empty {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.admin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.admin-row:last-child { border-bottom: none; }
+.admin-row strong { color: var(--text-primary); font-size: 0.9rem; font-family: 'Cinzel', serif; }
+.admin-row p { color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.2rem; }
+
+.admin-badge {
+  font-size: 0.75rem;
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.admin-badge--green {
+  background: rgba(124,211,66,0.1);
+  color: #7cd342;
+  border: 1px solid rgba(124,211,66,0.2);
+}
+
+@media (max-width: 900px) {
+  .admin-dash__stats { grid-template-columns: repeat(2,1fr); }
+  .admin-dash__grid  { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .admin-dash__stats { grid-template-columns: 1fr; }
+}
