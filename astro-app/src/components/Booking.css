@@ -1,0 +1,178 @@
+.booking__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.booking__feat-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--accent-gold);
+  margin-bottom: 1.25rem;
+}
+
+.booking__feat-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.booking__feat-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.booking__feat-list li span {
+  color: var(--accent-gold);
+  font-size: 0.55rem;
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+.booking__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trust-badge {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 0.3rem 0.75rem;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.5px;
+}
+
+.booking__step-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+}
+
+/* Day strip */
+.booking__days {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.day-btn {
+  flex: 1;
+  min-width: 52px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0.6rem 0.4rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.3s;
+  color: var(--text-secondary);
+}
+
+.day-btn:hover { border-color: rgba(201,168,76,0.4); }
+.day-btn--active {
+  border-color: var(--accent-gold);
+  background: rgba(201,168,76,0.08);
+  box-shadow: 0 0 12px rgba(201,168,76,0.15);
+}
+.day-btn--active .day-btn__name,
+.day-btn--active .day-btn__num,
+.day-btn--active .day-btn__month { color: var(--accent-gold); }
+
+.day-btn__name { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 1px; }
+.day-btn__num  { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 600; }
+.day-btn__month { font-family: 'Raleway', sans-serif; font-size: 0.65rem; text-transform: uppercase; }
+
+/* Slot buttons */
+.booking__slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.slot-btn {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0.7rem 0.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.slot-btn:hover { border-color: rgba(201,168,76,0.4); color: var(--accent-gold-light); }
+.slot-btn--active {
+  border-color: var(--accent-gold);
+  background: rgba(201,168,76,0.1);
+  color: var(--accent-gold);
+}
+
+.booking__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-subtle);
+  margin-bottom: 1rem;
+}
+
+.booking__total span:first-child {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.booking__price {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+.booking__price small {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-left: 0.25rem;
+}
+
+.booking__pay {
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+}
+.booking__pay:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .booking__grid { grid-template-columns: 1fr; }
+  .booking__slots { grid-template-columns: 1fr; }
+  .booking__days { gap: 0.35rem; }
+}
