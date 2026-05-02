@@ -1,0 +1,99 @@
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about__portrait-wrap { display: flex; justify-content: center; }
+
+.about__portrait-ring {
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-purple), var(--accent-gold));
+  box-shadow: 0 0 40px rgba(201,168,76,0.3);
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%,100% { box-shadow: 0 0 30px rgba(201,168,76,0.3); }
+  50%      { box-shadow: 0 0 60px rgba(201,168,76,0.5); }
+}
+
+.about__avatar {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.about__avatar svg { width: 100%; height: 100%; }
+
+.about__name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin-bottom: 0.4rem;
+}
+
+.about__tagline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.about__bio {
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.about__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.about__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-size: 0.82rem;
+  color: var(--accent-gold-light);
+  font-family: 'Cinzel', serif;
+}
+
+.about__spec-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.about__specialties ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.about__specialties li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+.about__dot { color: var(--accent-gold); font-size: 0.6rem; }
+
+@media (max-width: 768px) {
+  .about__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about__portrait-wrap { margin-bottom: 1rem; }
+  .about__portrait-ring { width: 160px; height: 160px; }
+}

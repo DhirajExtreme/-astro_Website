@@ -1,0 +1,66 @@
+.panchang { background: var(--bg-secondary); }
+
+.panchang__card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 0 0 30px rgba(201,168,76,0.1);
+}
+
+.panchang__header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.panchang__icon { font-size: 2.5rem; }
+
+.panchang__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--accent-gold);
+  margin-bottom: 0.25rem;
+}
+
+.panchang__date {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.panchang__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.panchang__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.panchang__row:last-child { border-bottom: none; }
+
+.panchang__label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.panchang__value {
+  color: var(--accent-gold-light);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+}

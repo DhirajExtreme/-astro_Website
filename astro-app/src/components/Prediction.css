@@ -1,0 +1,120 @@
+.prediction { background: radial-gradient(ellipse at 50% 0%, rgba(124,92,191,0.06) 0%, transparent 60%); }
+.prediction__sub { text-align: center; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 0.5rem; font-weight: 300; }
+
+.pred-form { max-width: 700px; margin: 0 auto; }
+.pred-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.pred-form__submit { width: 100%; margin-top: 0.5rem; font-size: 1rem; padding: 1rem; }
+.field-error { color: #e87a7a; font-size: 0.8rem; margin-top: 0.25rem; display: block; }
+
+/* Loading */
+.pred-loading {
+  display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  padding: 4rem 0;
+}
+.pred-loading p { color: var(--text-secondary); font-family: 'Cinzel', serif; letter-spacing: 2px; font-size: 0.9rem; }
+.pred-loading__wheel {
+  position: relative;
+  width: 120px; height: 120px;
+  animation: spin 3s linear infinite;
+}
+.pred-loading__wheel span {
+  position: absolute;
+  top: 50%; left: 50%;
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  transform-origin: 0 0;
+  transform: rotate(calc(var(--i) * 30deg)) translateY(-50px) rotate(calc(var(--i) * -30deg));
+}
+
+/* Result */
+.pred-result { max-width: none; width: 100%; margin: 0 auto; overflow: hidden; }
+.pred-result__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+.pred-result__grid { display: flex; flex-direction: column; gap: 0; }
+.pred-result__row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.pred-result__row span { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; white-space: nowrap; }
+.pred-result__row strong { color: var(--accent-gold-light); font-family: 'Cinzel', serif; font-size: 0.9rem; text-align: right; word-break: break-word; max-width: 60%; }
+
+.pred-result__insight {
+  background: rgba(124,92,191,0.08);
+  border: 1px solid rgba(124,92,191,0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.pred-result__insight h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.pred-result__insight p { color: var(--text-secondary); line-height: 1.9; font-weight: 300; font-size: 0.95rem; }
+
+/* Rasi chart */
+.rasi-chart { margin: 1.5rem 0; }
+.rasi-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.rasi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.rasi-cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 0.6rem 0.4rem;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transition: all 0.3s;
+}
+.rasi-cell--active {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 10px rgba(201,168,76,0.2);
+}
+.rasi-num { font-size: 0.65rem; color: var(--text-secondary); }
+.rasi-sign { font-size: 0.7rem; color: var(--accent-gold-light); font-family: 'Cinzel', serif; }
+
+.pred-result__upsell {
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(124,92,191,0.08));
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  display: flex; flex-direction: column; gap: 1rem; align-items: center;
+}
+.pred-result__upsell p { color: var(--text-primary); font-family: 'Cinzel', serif; font-size: 0.95rem; }
+
+.pred-result__reset {
+  background: none; border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); border-radius: 6px;
+  padding: 0.6rem 1.5rem; cursor: pointer;
+  font-family: 'Raleway', sans-serif; font-size: 0.9rem;
+  transition: all 0.3s; margin-top: 0.5rem;
+}
+.pred-result__reset:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+@media (max-width: 600px) {
+  .pred-form__row { grid-template-columns: 1fr; }
+  .rasi-grid { grid-template-columns: repeat(3, 1fr); }
+}
